@@ -5,16 +5,18 @@ export class Menu extends Phaser.Scene{
 
     preload(){
         this.load.image('menu', 'assets/fondmenu.png');
-        this.load.spritesheet('play', 'assets/SpriteSheetBoutonPlay.png', { frameWidth: 512, frameHeight: 172});
+        this.load.spritesheet('play', 'assets/BoutonPlay.png', { frameWidth: 300, frameHeight: 100});
         this.load.image('option', 'assets/option.png'); 
         this.load.image('quit', 'assets/quitter.png'); 
+        this.load.image('Logo', 'assets/LogoJeu.png'); 
     }
 
     create(){
         this.add.image(0, 0, 'menu');
-        var boutonPlay = this.add.sprite(960, 400, 'play').setInteractive();
-        this.add.image(960, 500, 'option');
-        this.add.image(960, 600, 'quit');
+        var boutonPlay = this.add.sprite(960, 550, 'play').setInteractive();
+        this.add.image(960, 700, 'option');
+        this.add.image(960, 850, 'quit');
+        this.add.image(960, 250, 'Logo');
 
         boutonPlay.on('pointerup', this.sceneScene01, this);
 

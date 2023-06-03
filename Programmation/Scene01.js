@@ -143,6 +143,7 @@ export class Scene01 extends Phaser.Scene {
             repeat: -1
 
         });
+        
 
 
         ////////Animation du pousser de box///////
@@ -218,7 +219,7 @@ export class Scene01 extends Phaser.Scene {
         this.anims.create({
             key: 'death',
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 8 }),
-            frameRate: 9,
+            frameRate: 14,
             repeat: 0
         });
 
