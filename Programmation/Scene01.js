@@ -40,11 +40,11 @@ export class Scene01 extends Phaser.Scene {
         this.load.image("tileset", "assets/Tileset.png");
         this.load.image('box', 'assets/rocher.png');
         this.load.image('platformImage', 'assets/platform.png');
-        
-        this.load.image('projectileImage', 'assets/balle.png');
-        
 
-        this.load.spritesheet('EnnemyImage', 'assets/Espritfeusprite.png',{ frameWidth: 40, frameHeight: 40 });
+        this.load.image('projectileImage', 'assets/balle.png');
+
+
+        this.load.spritesheet('EnnemyImage', 'assets/Espritfeusprite.png', { frameWidth: 40, frameHeight: 40 });
 
 
         //background
@@ -66,7 +66,7 @@ export class Scene01 extends Phaser.Scene {
         this.load.spritesheet('explosion', 'assets/mort.png', { frameWidth: 80, frameHeight: 80 });
         this.load.spritesheet('saut', 'assets/saut.png', { frameWidth: 32, frameHeight: 48 });
         //this.load.spritesheet('pousse', 'assets/pousse.png', { frameWidth: 32, frameHeight: 48 });
-        
+
 
 
         //////
@@ -74,12 +74,12 @@ export class Scene01 extends Phaser.Scene {
         this.load.image('histoire_collectible2', 'assets/histoire3.png');
 
         ///Game over
-        this.load.image('gameOver', 'assets/gameover.png');
+        this.load.spritesheet('GameOverImage', 'assets/gameover.png', { frameWidth: 600, frameHeight: 200 });
 
 
 
-        
-   
+
+
         // Chargement du méchant de feu.
         this.load.spritesheet('Feu', 'assets/spirite.png', { frameWidth: 32, frameHeight: 64 });
         this.load.spritesheet('Bouledefeu', 'assets/fireball.png', { frameWidth: 16, frameHeight: 16 });
@@ -92,8 +92,8 @@ export class Scene01 extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, 293 * 32, 50 * 32);
         this.player = this.physics.add.sprite(100, 1472, 'perso').setDepth(100);
         this.cameras.main.setZoom(2.2);
-        this.player.setSize(20,44);
-        this.player.setOffset(8,4);
+        this.player.setSize(20, 44);
+        this.player.setOffset(8, 4);
 
 
 
@@ -123,7 +123,7 @@ export class Scene01 extends Phaser.Scene {
 
         this.calque_fondu = map.createLayer('calque_fondu', tiles);
         this.calque_fondu.setCollisionByProperty({ estSolide: true });
-        
+
 
         this.anims.create({
             key: 'spiderman',
@@ -143,7 +143,11 @@ export class Scene01 extends Phaser.Scene {
             repeat: -1
 
         });
-        
+
+
+
+        ///Animation de l'esprit Simple /////////////////
+
 
 
         ////////Animation du pousser de box///////
@@ -151,7 +155,7 @@ export class Scene01 extends Phaser.Scene {
 
         // Activer la collision entre le joueur et le this.calque_fondu
         this.physics.add.collider(this.calque_fondu, this.player, () => {
-            if (this.cursors.up.isDown ) {
+            if (this.cursors.up.isDown) {
                 this.player.setVelocityY(-180)
                 //this.player.anims.play('spiderman',true);
             } else if (this.cursors.down.isDown) {
@@ -223,7 +227,7 @@ export class Scene01 extends Phaser.Scene {
             repeat: 0
         });
 
-        
+
         this.anims.create({
             key: 'saut',
             frames: this.anims.generateFrameNumbers('saut', { start: 0, end: 2 }),
@@ -279,7 +283,7 @@ export class Scene01 extends Phaser.Scene {
         this.platformsV4 = new PlatformVertical(this, 3662, 302, 450, 75);
 
 
-         // Collider des plateformes verticales
+        // Collider des plateformes verticales
         this.physics.add.collider(this.platformsV0, this.player)
         this.physics.add.collider(this.platformsV, this.player)
         this.physics.add.collider(this.platformsV2, this.player)
@@ -289,7 +293,7 @@ export class Scene01 extends Phaser.Scene {
 
         /////////////////////////////////////////Création des esprits///////////////////////////////////////////////////
 
-        this.Firespirite = new Spirits(this, 93 * 32, 40 * 32,this.calque_plateforme);
+        this.Firespirite = new Spirits(this, 93 * 32, 40 * 32, this.calque_plateforme);
         this.physics.add.collider(this.Firespirite, this.player)
         this.physics.add.collider(this.Firespirite, this.calque_plateforme)
 
@@ -300,10 +304,10 @@ export class Scene01 extends Phaser.Scene {
 
         this.Ennemis1 = new Ennemis(this, 1824, 1088, 100, 40, 200, this.calque_plateforme, this.calque_fondu);
         this.Ennemis2 = new Ennemis(this, 1344, 1056, 100, 40, 200, this.calque_plateforme, this.calque_fondu);
-        this.Ennemis3 = new Ennemis(this, 16*32, 6*32, 120, 70, 120, this.calque_plateforme, this.calque_fondu);
-        this.Ennemis4 = new Ennemis(this, 42*32, 19*32, 100, 40, 100, this.calque_plateforme, this.calque_fondu);
-        this.Ennemis5 = new Ennemis(this, 61*32, 9*32, 100, 40, 200, this.calque_plateforme, this.calque_fondu);
-        
+        this.Ennemis3 = new Ennemis(this, 16 * 32, 6 * 32, 120, 70, 120, this.calque_plateforme, this.calque_fondu);
+        this.Ennemis4 = new Ennemis(this, 42 * 32, 19 * 32, 100, 40, 100, this.calque_plateforme, this.calque_fondu);
+        this.Ennemis5 = new Ennemis(this, 61 * 32, 9 * 32, 100, 40, 200, this.calque_plateforme, this.calque_fondu);
+
 
         //Collision des ennemis
 
@@ -316,7 +320,7 @@ export class Scene01 extends Phaser.Scene {
 
         //this.physics.add.collider(this.Ennemis3, this.player)
         this.physics.add.collider(this.Ennemis3, this.calque_plateforme)
-        
+
         //this.physics.add.collider(this.Ennemis4, this.player)
         this.physics.add.collider(this.Ennemis4, this.calque_plateforme)
 
@@ -331,31 +335,43 @@ export class Scene01 extends Phaser.Scene {
         this.box = new Rock(this, 635, 1472, 'box');
         this.physics.add.collider(this.calque_plateforme, this.box);
         this.physics.add.collider(this.player, this.box);
+        this.physics.add.collider(this.calque_fondu, this.box);
 
         // Nouvelle boîte
         this.box1 = new Rock(this, 28 * 32, 24 * 32, 'box');
         this.physics.add.collider(this.calque_plateforme, this.box1);
         this.physics.add.collider(this.player, this.box1);
+        this.physics.add.collider(this.calque_fondu, this.box1);
 
         // Nouvelle boîte
         this.box2 = new Rock(this, 76 * 32, 25 * 32, 'box');
         this.physics.add.collider(this.calque_plateforme, this.box2);
         this.physics.add.collider(this.player, this.box2);
+        this.physics.add.collider(this.calque_fondu, this.box2);
 
         // Nouvelle boîte
         this.box3 = new Rock(this, 119 * 32, 42 * 32, 'box');
         this.physics.add.collider(this.calque_plateforme, this.box3);
         this.physics.add.collider(this.player, this.box3);
+        this.physics.add.collider(this.calque_fondu, this.box3);
 
 
         // Nouvelle boîte
         this.box4 = new Rock(this, 22 * 32, 6 * 32, 'box');
         this.physics.add.collider(this.calque_plateforme, this.box4);
         this.physics.add.collider(this.player, this.box4);
+        this.physics.add.collider(this.calque_fondu, this.box4);
         // Nouvelle boîte
         this.box5 = new Rock(this, 4930, 136, 'box');
         this.physics.add.collider(this.calque_plateforme, this.box5);
         this.physics.add.collider(this.player, this.box5);
+        this.physics.add.collider(this.calque_fondu, this.box5);
+
+        // Nouvelle boîte
+        this.box6 = new Rock(this, 2048, 864, 'box');
+        this.physics.add.collider(this.calque_plateforme, this.box6,);
+        this.physics.add.collider(this.player, this.box6);
+        this.physics.add.collider(this.calque_fondu, this.box6);
 
 
 
@@ -370,6 +386,7 @@ export class Scene01 extends Phaser.Scene {
                 const distanceBox3 = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.box3.x, this.box3.y);
                 const distanceBox4 = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.box4.x, this.box4.y);
                 const distanceBox5 = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.box5.x, this.box5.y);
+                const distanceBox6 = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.box6.x, this.box6.y);
                 if (distanceBox < 100) {
                     this.agripperBox(this.box);
                 } else if (distanceBox1 < 100) {
@@ -384,6 +401,8 @@ export class Scene01 extends Phaser.Scene {
                     this.agripperBox(this.box4);
                 } else if (distanceBox5 < 100) {
                     this.agripperBox(this.box5);
+                } else if (distanceBox6 < 100) {
+                    this.agripperBox(this.box6);
                 }
             }
         });
@@ -409,14 +428,14 @@ export class Scene01 extends Phaser.Scene {
 
         ///////////////////////////// Collectible //////////////////////////////////////////////////////////////////
 
-        this.collectible1 = new Memories(this, 13 * 32, 37 * 32, "histoire_collectible1",20,150,);
+        this.collectible1 = new Memories(this, 13 * 32, 37 * 32, "histoire_collectible1", 20, 150,);
         this.physics.add.collider(this.collectible1.visionBox, this.player, this.handleCollisionWithCollectible, null, this);
         this.collectible1.play('Souvenirs', true);
         this.physics.add.collider(this.collectible1, this.calque_plateforme);
 
 
 
-        this.collectible2 = new Memories(this, 3 * 32, 34 * 32, 'histoire_collectible2',20,150,);
+        this.collectible2 = new Memories(this, 3 * 32, 34 * 32, 'histoire_collectible2', 20, 150,);
         this.physics.add.collider(this.collectible2.visionBox, this.player, this.handleCollisionWithCollectible2, null, this);
         this.physics.add.collider(this.collectible2, this.calque_plateforme);
         this.collectible2.play('Souvenirs', true);
@@ -431,9 +450,14 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible4, this.calque_plateforme);
         this.collectible4.play('Souvenirs', true);
 
+        this.collectible5 = new Memories(this, 1810, 45 * 32);
+        this.physics.add.collider(this.collectible5.visionBox, this.player, this.handleCollisionWithCollectible5, null, this);
+        this.physics.add.collider(this.collectible5, this.calque_plateforme);
+        this.collectible5.play('Souvenirs', true);
 
-        
-        score = this.add.text(25*3, 15*3, "0", { fontSize: '32px', fill: '#FF7F00', fontWeight: 'bold' }).setOrigin(0, 0).setScrollFactor(0);
+
+
+        score = this.add.text(25 * 3, 15 * 3, "0", { fontSize: '32px', fill: '#FF7F00', fontWeight: 'bold' }).setOrigin(0, 0).setScrollFactor(0);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -484,15 +508,18 @@ export class Scene01 extends Phaser.Scene {
 
 
 
+        this.anims.create({
+            key: 'GameOverImage', // Utilisez la même clé que celle définie pour l'animation
+            frames: this.anims.generateFrameNumbers('GameOverImage', { start: 0, end: 1 }),
+            frameRate: 2,
+            repeat: -1
+        });
+
         ///////GAME OVER//////
         this.isGameOver = false;
-        this.gameOverImage = this.add.image(850, 440, 'gameOver').setOrigin(0, 0).setScrollFactor(0).setDepth(250);
+        this.gameOverImage = this.add.sprite(675, 440, 'GameOverImage').setOrigin(0, 0).setScrollFactor(0).setDepth(250);
         this.gameOverImage.setVisible(false);
 
-
-        ///////Gestion des memories/////////
-
-      
 
     }
 
@@ -501,11 +528,11 @@ export class Scene01 extends Phaser.Scene {
         // Affiche l'écran de Game Over
         this.gameOverImage.setVisible(true);
         this.canRestart = true;
-      
+        this.gameOverImage.anims.play('GameOverImage', true); // Utilisez la clé correcte pour lancer l'animation
+
         // Ajoute un écouteur d'événement pour détecter lorsque le joueur appuie sur la touche 'r'
         this.input.keyboard.on('keydown-Y', this.restartGame, this);
-      }
-
+    }
 
     handlePlayerDeath() {
         if (this.isRestarting) {
@@ -592,6 +619,20 @@ export class Scene01 extends Phaser.Scene {
 
     }
 
+    
+    handleCollisionWithCollectible5(visionBox, player) {
+        // Faire disparaître l'allié
+        this.collectible5.setVisible(false);
+        this.collectible5.setActive(false);
+
+        // Supprimer la hitbox de l'allié
+        visionBox.destroy();
+
+        nombre++;
+        score.setText(+ nombre);
+
+    }
+
     agripperBox(box) {
         this.player.isAgrippantBox = true;
         this.cameras.main.shake(200, 0.001); // Déclenche un léger tremblement de caméra
@@ -608,29 +649,29 @@ export class Scene01 extends Phaser.Scene {
 
     restorePlayerSize() {
         this.player.setScale(1);
-        if (this.player.body.blocked.right){
+        if (this.player.body.blocked.right) {
             this.player.x -= this.player.width / 2;
         }
-        if (this.player.body.blocked.left){
+        if (this.player.body.blocked.left) {
             this.player.x += this.player.width / 2;
         }
-        if (this.player.body.blocked.down){
+        if (this.player.body.blocked.down) {
             this.player.y -= this.player.height / 2;
         }
     }
-    
+
     reducePlayerSize() {
-        this.player.setScale(0.5);   
+        this.player.setScale(0.5);
     }
-    
-    
+
+
 
     destroy() {
         this.particles.destroy();
     }
 
     update() {
-        if(this.player.body.blocked.down){
+        if (this.player.body.blocked.down) {
             this.player.grounded = true;
         }
         else {
@@ -684,7 +725,7 @@ export class Scene01 extends Phaser.Scene {
                 box.setVelocityX(-100);
             }
         }
-        
+
         // Si le joueur est petit il ne peut pas bouger les box
 
         if (this.isReduced) {
@@ -694,8 +735,9 @@ export class Scene01 extends Phaser.Scene {
             this.box4.body.moves = false; // Désactive le mouvement de la boîte lorsque le joueur est réduit
             this.box5.body.moves = false; // Désactive le mouvement de la boîte lorsque le joueur est réduit
             this.box3.body.moves = false; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
-            
-        
+            this.box6.body.moves = false; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
+
+
         } else {
             this.box.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
             this.box2.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
@@ -703,18 +745,19 @@ export class Scene01 extends Phaser.Scene {
             this.box3.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
             this.box5.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
             this.box4.body.moves = true; // Désactive le mouvement de la boîte lorsque le joueur est réduit
+            this.box6.body.moves = true; // Désactive le mouvement de la boîte lorsque le joueur est réduit
         }
-        
-        
-           
-    
+
+
+
+
 
 
 
         // Utilisez this.emitter pour accéder à l'objet emitter dans la fonction update()
         this.emitter.setPosition(this.player.x, this.player.y);
 
-       
+
 
     }
 }
