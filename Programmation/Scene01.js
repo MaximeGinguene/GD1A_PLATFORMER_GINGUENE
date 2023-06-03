@@ -27,7 +27,7 @@ export class Scene01 extends Phaser.Scene {
         this.playerInitialGravity = 300; // Valeur initiale de la gravité du joueur
         this.emitter = null; // Déclaration de la variable membre emitter  
         this.canPressE = true;
-        this.lastCheckpoint = { x: 150, y: 1472 }
+        this.lastCheckpoint = { x: 100, y: 1472 }
 
     }
 
@@ -40,9 +40,10 @@ export class Scene01 extends Phaser.Scene {
         this.load.image("tileset", "assets/Tileset.png");
         this.load.image('box', 'assets/rocher.png');
         this.load.image('platformImage', 'assets/platform.png');
+        
         this.load.image('projectileImage', 'assets/balle.png');
         
-
+        
         this.load.spritesheet('EnnemyImage', 'assets/Espritfeusprite.png',{ frameWidth: 40, frameHeight: 40 });
 
 
@@ -55,7 +56,15 @@ export class Scene01 extends Phaser.Scene {
         this.load.image('particule', 'assets/particule.png');
         this.load.spritesheet('death', 'assets/dead.png', { frameWidth: 32, frameHeight: 64 });
         this.load.spritesheet('checkpoint', 'assets/invisible_sprite.png', { frameWidth: 96, frameHeight: 96 });
+
+
+
+        ///////Animation joueur/////////////////////
         this.load.spritesheet('spiderman', 'assets/colle.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('Course', 'assets/CourseTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('Essoufle', 'assets/idleTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('explosion', 'assets/mort.png', { frameWidth: 80, frameHeight: 80 });
+        
 
 
         //////
@@ -67,10 +76,8 @@ export class Scene01 extends Phaser.Scene {
 
 
 
-        this.load.spritesheet('explosion', 'assets/mort.png', { frameWidth: 80, frameHeight: 80 });
-        this.load.spritesheet('Course', 'assets/CourseTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.spritesheet('Essoufle', 'assets/idleTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
-
+        
+   
         // Chargement du méchant de feu.
         this.load.spritesheet('Feu', 'assets/spirite.png', { frameWidth: 32, frameHeight: 64 });
         this.load.spritesheet('Bouledefeu', 'assets/fireball.png', { frameWidth: 16, frameHeight: 16 });
