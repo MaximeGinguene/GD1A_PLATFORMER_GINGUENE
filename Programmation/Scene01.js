@@ -43,7 +43,7 @@ export class Scene01 extends Phaser.Scene {
         
         this.load.image('projectileImage', 'assets/balle.png');
         
-        
+
         this.load.spritesheet('EnnemyImage', 'assets/Espritfeusprite.png',{ frameWidth: 40, frameHeight: 40 });
 
 
@@ -64,6 +64,8 @@ export class Scene01 extends Phaser.Scene {
         this.load.spritesheet('Course', 'assets/CourseTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('Essoufle', 'assets/idleTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('explosion', 'assets/mort.png', { frameWidth: 80, frameHeight: 80 });
+        this.load.spritesheet('saut', 'assets/saut.png', { frameWidth: 32, frameHeight: 48 });
+        //this.load.spritesheet('pousse', 'assets/pousse.png', { frameWidth: 32, frameHeight: 48 });
         
 
 
@@ -141,7 +143,9 @@ export class Scene01 extends Phaser.Scene {
             repeat: -1
 
         });
-    
+
+
+        ////////Animation du pousser de box///////
 
 
         // Activer la collision entre le joueur et le this.calque_fondu
@@ -215,6 +219,14 @@ export class Scene01 extends Phaser.Scene {
             key: 'death',
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 8 }),
             frameRate: 9,
+            repeat: 0
+        });
+
+        
+        this.anims.create({
+            key: 'saut',
+            frames: this.anims.generateFrameNumbers('saut', { start: 0, end: 2 }),
+            frameRate: 3,
             repeat: 0
         });
 
@@ -653,7 +665,7 @@ export class Scene01 extends Phaser.Scene {
 
             if (Phaser.Input.Keyboard.JustDown(this.cursors.up) && this.player.grounded) {
                 this.player.setVelocityY(-300);
-                this.player.anims.play('jump');
+                this.player.anims.play('saut');
             }
         } else {
             this.player.setVelocityX(0);
