@@ -97,8 +97,8 @@ export class Scene01 extends Phaser.Scene {
 
         // Caméra
         this.cameras.main.setBounds(0, 0, 293 * 32, 50 * 32);
-        this.player = this.physics.add.sprite(85*32, 12*32, 'perso').setDepth(100);
-        this.cameras.main.setZoom(1);
+        this.player = this.physics.add.sprite(100,1472, 'perso').setDepth(100);
+        this.cameras.main.setZoom(2.2);
         this.player.setSize(20, 44);
         this.player.setOffset(8, 4);
         
@@ -390,6 +390,8 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.player, this.box6);
         this.physics.add.collider(this.calque_fondu, this.box6);
 
+        
+
 
 
 
@@ -486,6 +488,11 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible8.visionBox, this.player, this.handleCollisionWithCollectible8, null, this);
         this.physics.add.collider(this.collectible8, this.calque_plateforme);
         this.collectible8.play('Souvenirs', true);
+
+        this.collectible9 = new Memories(this, 49*32,35*32);
+        this.physics.add.collider(this.collectible9.visionBox, this.player, this.handleCollisionWithCollectible9, null, this);
+        this.physics.add.collider(this.collectible9, this.calque_plateforme);
+        this.collectible9.play('Souvenirs', true);
 
 
 
@@ -719,6 +726,19 @@ export class Scene01 extends Phaser.Scene {
         // Faire disparaître l'allié
         this.collectible8.setVisible(false);
         this.collectible8.setActive(false);
+
+        // Supprimer la hitbox de l'allié
+        visionBox.destroy();
+
+        nombre++;
+        score.setText(+ nombre);
+
+    }
+
+    handleCollisionWithCollectible9(visionBox, player) {
+        // Faire disparaître l'allié
+        this.collectible9.setVisible(false);
+        this.collectible9.setActive(false);
 
         // Supprimer la hitbox de l'allié
         visionBox.destroy();
