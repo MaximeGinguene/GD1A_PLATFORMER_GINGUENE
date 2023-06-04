@@ -35,54 +35,61 @@ export class Scene01 extends Phaser.Scene {
 
     preload() {
 
-        this.load.spritesheet('perso', 'assets/monperso.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.tilemapTiledJSON('map', "assets/MapMarioLike.json");
-        this.load.image("tileset", "assets/Tileset.png");
-        this.load.image('box', 'assets/rocher.png');
-        this.load.image('platformImage', 'assets/platform.png');
+        //this.load.spritesheet('perso', 'assets/monperso.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.tilemapTiledJSON('map', "Programmation/assets/MapMarioLike.json");
+        this.load.image("tileset", "Programmation/assets/Tileset.png");
+        this.load.image('box', 'Programmation/assets/rocher.png');
+        this.load.image('platformImage', 'Programmation/assets/platform.png');
 
-        this.load.image('projectileImage', 'assets/balle.png');
+        this.load.image('projectileImage', 'Programmation/assets/balle.png');
 
 
-        this.load.spritesheet('EnnemyImage', 'assets/Espritfeusprite.png', { frameWidth: 40, frameHeight: 40 });
+        this.load.spritesheet('EnnemyImage', 'Programmation/assets/Espritfeusprite.png', { frameWidth: 40, frameHeight: 40 });
 
 
         //background
 
-        this.load.image('background1', 'assets/Background.png');
-        this.load.image('background2', 'assets/background2.png');
+        this.load.image('background1', 'Programmation/assets/Background.png');
+        this.load.image('background2', 'Programmation/assets/background2.png');
 
-        this.load.spritesheet('SouvenirImage', 'assets/souvenirspritesheet.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.image('particule', 'assets/particule.png');
-        this.load.spritesheet('death', 'assets/dead.png', { frameWidth: 32, frameHeight: 64 });
-        this.load.spritesheet('checkpoint', 'assets/invisible_sprite.png', { frameWidth: 96, frameHeight: 96 });
+        //
+
+        this.load.spritesheet('SouvenirImage', 'Programmation/assets/souvenirspritesheet.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('particule', 'Programmation/assets/particule.png');
+        this.load.spritesheet('checkpoint', 'Programmation/assets/invisible_sprite.png', { frameWidth: 96, frameHeight: 96 });
 
 
 
         ///////Animation joueur/////////////////////
-        this.load.spritesheet('spiderman', 'assets/colle.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.spritesheet('Course', 'assets/CourseTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.spritesheet('Essoufle', 'assets/idleTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.spritesheet('explosion', 'assets/mort.png', { frameWidth: 80, frameHeight: 80 });
-        this.load.spritesheet('saut', 'assets/saut.png', { frameWidth: 32, frameHeight: 48 });
-        //this.load.spritesheet('pousse', 'assets/pousse.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('spiderman', 'Programmation/assets/colle.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('Course', 'Programmation/assets/CourseTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('Essoufle', 'Programmation/assets/idleTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('explosion', 'Programmation/assets/mort.png', { frameWidth: 80, frameHeight: 80 });
+        this.load.spritesheet('saut', 'Programmation/assets/saut.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('death', 'Programmation/assets/dead.png', { frameWidth: 32, frameHeight: 64 });
+        //this.load.spritesheet('pousse', 'Programmation/assets/pousse.png', { frameWidth: 32, frameHeight: 48 });
 
 
 
-        //////
-        this.load.image('histoire_collectible1', 'assets/histoire2.png');
-        this.load.image('histoire_collectible2', 'assets/histoire3.png');
+        //////Collectible Hsitoire/////////////////
+        this.load.image('histoire_collectible1', 'Programmation/assets/histoire2.png');
+        this.load.image('histoire_collectible2', 'Programmation/assets/histoire3.png');
 
         ///Game over
-        this.load.spritesheet('GameOverImage', 'assets/gameover.png', { frameWidth: 600, frameHeight: 200 });
+        this.load.spritesheet('GameOverImage', 'Programmation/assets/gameover.png', { frameWidth: 600, frameHeight: 200 });
 
 
 
 
 
         // Chargement du méchant de feu.
-        this.load.spritesheet('Feu', 'assets/spirite.png', { frameWidth: 32, frameHeight: 64 });
-        this.load.spritesheet('Bouledefeu', 'assets/fireball.png', { frameWidth: 16, frameHeight: 16 });
+        this.load.spritesheet('Feu', 'Programmation/assets/spirite.png', { frameWidth: 32, frameHeight: 64 });
+        this.load.spritesheet('Bouledefeu', 'Programmation/assets/fireball.png', { frameWidth: 16, frameHeight: 16 });
+
+
+        ////////Chargement du Roi des ombres///////////
+        this.load.spritesheet('Roi', 'Programmation/assets/Roiombre-Sheet.png', { frameWidth: 32, frameHeight: 48 });
+
 
     }
     create() {
@@ -94,6 +101,7 @@ export class Scene01 extends Phaser.Scene {
         this.cameras.main.setZoom(2.2);
         this.player.setSize(20, 44);
         this.player.setOffset(8, 4);
+        
 
 
 
@@ -114,7 +122,7 @@ export class Scene01 extends Phaser.Scene {
 
         this.calque_plateforme = map.createLayer("calque_plateforme", tiles);
 
-        this.add.image(1000, 450, 'background1').setScrollFactor(0.5).setDepth(-1);
+        this.add.image(300, 450, 'background1').setScrollFactor(0.5).setDepth(-1);
         this.add.image(1000, 400, 'background2').setScrollFactor(0.6).setDepth(-2);
 
 
@@ -302,7 +310,7 @@ export class Scene01 extends Phaser.Scene {
 
         /////////////////////////////////////////Création des enenmis///////////////////////////////////////////////////
 
-        this.Ennemis1 = new Ennemis(this, 1824, 1088, 100, 40, 200, this.calque_plateforme, this.calque_fondu);
+        this.Ennemis1 = new Ennemis(this, 1795, 1088, 100, 40, 200, this.calque_plateforme, this.calque_fondu);
         this.Ennemis2 = new Ennemis(this, 1344, 1056, 100, 40, 200, this.calque_plateforme, this.calque_fondu);
         this.Ennemis3 = new Ennemis(this, 16 * 32, 6 * 32, 120, 70, 120, this.calque_plateforme, this.calque_fondu);
         this.Ennemis4 = new Ennemis(this, 42 * 32, 19 * 32, 100, 40, 100, this.calque_plateforme, this.calque_fondu);
@@ -315,16 +323,20 @@ export class Scene01 extends Phaser.Scene {
         this.Ennemis1.play('EnnemyImage');
         this.physics.add.collider(this.Ennemis1, this.calque_plateforme)
 
-        this.physics.add.collider(this.Ennemis2, this.player)
+        //this.physics.add.collider(this.Ennemis2, this.player)
+        this.Ennemis2.play('EnnemyImage');
         this.physics.add.collider(this.Ennemis2, this.calque_plateforme)
 
         //this.physics.add.collider(this.Ennemis3, this.player)
+        this.Ennemis3.play('EnnemyImage');
         this.physics.add.collider(this.Ennemis3, this.calque_plateforme)
 
         //this.physics.add.collider(this.Ennemis4, this.player)
+        this.Ennemis4.play('EnnemyImage');
         this.physics.add.collider(this.Ennemis4, this.calque_plateforme)
 
         //this.physics.add.collider(this.Ennemis5, this.player)
+        this.Ennemis5.play('EnnemyImage');
         this.physics.add.collider(this.Ennemis5, this.calque_plateforme)
 
 
@@ -455,9 +467,15 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible5, this.calque_plateforme);
         this.collectible5.play('Souvenirs', true);
 
+        this.collectible6 = new Memories(this, 1495, 46 * 32);
+        this.physics.add.collider(this.collectible6.visionBox, this.player, this.handleCollisionWithCollectible6, null, this);
+        this.physics.add.collider(this.collectible6, this.calque_plateforme);
+        this.collectible6.play('Souvenirs', true);
 
 
-        score = this.add.text(25 * 3, 15 * 3, "0", { fontSize: '32px', fill: '#FF7F00', fontWeight: 'bold' }).setOrigin(0, 0).setScrollFactor(0);
+
+        score = this.add.text(625, 325, "0", { fontSize: '32px', fill: '#FF7F00', fontWeight: 'bold' }).setOrigin(0, 0).setScrollFactor(0);
+        this.add.image(585, 325, "SouvenirImage").setOrigin(0, 0).setScrollFactor(0).setDepth(250);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -469,6 +487,7 @@ export class Scene01 extends Phaser.Scene {
         this.checkpoint2 = this.physics.add.sprite(31 * 33, 31 * 30, 'checkpoint');
         this.checkpoint3 = this.physics.add.sprite(2080, 850, 'checkpoint');
         this.checkpoint4 = this.physics.add.sprite(832, 580, 'checkpoint');
+        this.checkpoint5 = this.physics.add.sprite(2900, 700, 'checkpoint');
 
         // Overlap entre le player et le chekpoint 1
         this.physics.add.overlap(this.player, this.checkpoint1, () => {
@@ -500,8 +519,17 @@ export class Scene01 extends Phaser.Scene {
         // Collision entre checkpoint3 et this.calque_plateforme
         this.physics.add.collider(this.checkpoint4, this.calque_plateforme);
 
-        // Overlap entre le player et le chekpoint 3
+        // Overlap entre le player et le chekpoint 4
         this.physics.add.overlap(this.player, this.checkpoint4, () => {
+            this.lastCheckpoint.x = this.player.x;
+            this.lastCheckpoint.y = this.player.y;
+        }, null, this);
+
+        // Collision entre checkpoint5 et this.calque_plateforme
+        this.physics.add.collider(this.checkpoint5, this.calque_plateforme);
+
+        // Overlap entre le player et le chekpoint 5
+        this.physics.add.overlap(this.player, this.checkpoint5, () => {
             this.lastCheckpoint.x = this.player.x;
             this.lastCheckpoint.y = this.player.y;
         }, null, this);
@@ -521,6 +549,18 @@ export class Scene01 extends Phaser.Scene {
         this.gameOverImage.setVisible(false);
 
 
+        ///////Chargement anime du Roi//////////
+
+        this.anims.create({
+            key: 'Roi', // Utilisez la même clé que celle définie pour l'animation
+            frames: this.anims.generateFrameNumbers('Roi', { start: 0, end: 1 }),
+            frameRate: 2,
+            repeat: -1
+        });
+
+        this.roi = this.add.sprite(180, 1457, 'Roi').setOrigin(0);
+        this.roi.anims.play ('Roi',true);
+       
     }
 
 
@@ -624,6 +664,19 @@ export class Scene01 extends Phaser.Scene {
         // Faire disparaître l'allié
         this.collectible5.setVisible(false);
         this.collectible5.setActive(false);
+
+        // Supprimer la hitbox de l'allié
+        visionBox.destroy();
+
+        nombre++;
+        score.setText(+ nombre);
+
+    }
+
+    handleCollisionWithCollectible6(visionBox, player) {
+        // Faire disparaître l'allié
+        this.collectible6.setVisible(false);
+        this.collectible6.setActive(false);
 
         // Supprimer la hitbox de l'allié
         visionBox.destroy();

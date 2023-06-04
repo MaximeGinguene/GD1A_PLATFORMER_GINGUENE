@@ -4,11 +4,11 @@ export class Menu extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('menu', 'assets/fondmenu.png');
-        this.load.spritesheet('play', 'assets/BoutonPlay.png', { frameWidth: 300, frameHeight: 100});
-        this.load.image('option', 'assets/option.png'); 
-        this.load.image('quit', 'assets/quitter.png'); 
-        this.load.image('Logo', 'assets/LogoJeu.png'); 
+        this.load.image('menu', 'Programmation/assets/fondmenu.png');
+        this.load.spritesheet('play', 'Programmation/assets/BoutonPlay.png', { frameWidth: 300, frameHeight: 100});
+        this.load.image('option', 'Programmation/assets/option.png'); 
+        this.load.image('quit', 'Programmation/assets/quitter.png'); 
+        this.load.image('Logo', 'Programmation/assets/LogoJeu.png'); 
     }
 
     create(){

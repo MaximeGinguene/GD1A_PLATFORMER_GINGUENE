@@ -9,7 +9,7 @@ export class Rock extends Phaser.Physics.Arcade.Sprite {
             .setOffset(0, 0)
             .setImmovable(true);
 
-        this.player = scene.player; // Assurez-vous d'avoir une référence à l'objet "player" dans votre scène principale et de la passer à la classe Rock.
+        this.player = scene.player; 
 
         // Ajoutez les touches de saisie et de lâcher à la scène principale plutôt qu'à la classe Rock.
         this.toucheA = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
