@@ -97,7 +97,7 @@ export class Scene01 extends Phaser.Scene {
 
         // Caméra
         this.cameras.main.setBounds(0, 0, 293 * 32, 50 * 32);
-        this.player = this.physics.add.sprite(100, 1472, 'perso').setDepth(100);
+        this.player = this.physics.add.sprite(104*32, 17*32, 'perso').setDepth(100);
         this.cameras.main.setZoom(2.2);
         this.player.setSize(20, 44);
         this.player.setOffset(8, 4);
@@ -273,7 +273,7 @@ export class Scene01 extends Phaser.Scene {
 
 
         this.platforms = new Platform(this, 3075, 429, 140, 2.2);
-        this.platforms2 = new Platform(this, 3210, 750, 360, 2.2);
+        this.platforms2 = new Platform(this, 3210, 850, 360, 2.3);
 
         // Collider des plateformes horizontales
         this.physics.add.collider(this.platforms0, this.player)
@@ -288,7 +288,7 @@ export class Scene01 extends Phaser.Scene {
         this.platformsV = new PlatformVertical(this, 3220, 1260, 215, 90);
         this.platformsV2 = new PlatformVertical(this, 3410, 1260, 200, 75);
         this.platformsV3 = new PlatformVertical(this, 3600, 1260, 215, 85);
-        this.platformsV4 = new PlatformVertical(this, 3662, 302, 450, 75);
+        this.platformsV4 = new PlatformVertical(this, 3662, 302, 550, 100);
 
 
         // Collider des plateformes verticales
@@ -457,7 +457,7 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible3, this.calque_plateforme);
         this.collectible3.play('Souvenirs', true);
 
-        this.collectible4 = new Memories(this, 104 * 32, 17 * 32);
+        this.collectible4 = new Memories(this, 3350, 17 * 32);
         this.physics.add.collider(this.collectible4.visionBox, this.player, this.handleCollisionWithCollectible4, null, this);
         this.physics.add.collider(this.collectible4, this.calque_plateforme);
         this.collectible4.play('Souvenirs', true);
@@ -471,6 +471,12 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible6.visionBox, this.player, this.handleCollisionWithCollectible6, null, this);
         this.physics.add.collider(this.collectible6, this.calque_plateforme);
         this.collectible6.play('Souvenirs', true);
+
+        this.collectible7 = new Memories(this, 130*32,1100);
+        this.physics.add.collider(this.collectible7.visionBox, this.player, this.handleCollisionWithCollectible7, null, this);
+        this.physics.add.collider(this.collectible7, this.calque_plateforme);
+        this.collectible7.play('Souvenirs', true);
+
 
 
 
@@ -677,6 +683,19 @@ export class Scene01 extends Phaser.Scene {
         // Faire disparaître l'allié
         this.collectible6.setVisible(false);
         this.collectible6.setActive(false);
+
+        // Supprimer la hitbox de l'allié
+        visionBox.destroy();
+
+        nombre++;
+        score.setText(+ nombre);
+
+    }
+
+    handleCollisionWithCollectible7(visionBox, player) {
+        // Faire disparaître l'allié
+        this.collectible7.setVisible(false);
+        this.collectible7.setActive(false);
 
         // Supprimer la hitbox de l'allié
         visionBox.destroy();
