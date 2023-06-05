@@ -299,7 +299,7 @@ export class Scene01 extends Phaser.Scene {
 
 
         this.platforms = new Platform(this, 3075, 429, 140, 2.2);
-        this.platforms2 = new Platform(this, 3210, 850, 360, 2.8);
+        this.platforms2 = new Platform(this, 3180, 850, 360, 2.8);
 
         // Collider des plateformes horizontales
         this.physics.add.collider(this.platforms0, this.player)
