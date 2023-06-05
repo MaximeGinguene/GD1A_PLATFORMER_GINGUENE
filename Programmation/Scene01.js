@@ -100,7 +100,7 @@ export class Scene01 extends Phaser.Scene {
 
         // Caméra
         this.cameras.main.setBounds(0, 0, 293 * 32, 50 * 32);
-        this.player = this.physics.add.sprite(189*32,42*32, 'perso').setDepth(100);
+        this.player = this.physics.add.sprite(100,1472, 'perso').setDepth(100);
         this.cameras.main.setZoom(2.2);
         this.player.setSize(20, 44);
         this.player.setOffset(8, 4);
