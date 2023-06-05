@@ -64,7 +64,7 @@ export class Scene01 extends Phaser.Scene {
         this.load.spritesheet('spiderman', 'Programmation/assets/colle.png', { frameWidth: 32, frameHeight: 48 });
 
         this.load.spritesheet('ombreplafond', 'Programmation/assets/ombreplafond.png', { frameWidth: 48, frameHeight: 32 });
-        
+
         this.load.spritesheet('Course', 'Programmation/assets/CourseTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('Essoufle', 'Programmation/assets/idleTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('explosion', 'Programmation/assets/mort.png', { frameWidth: 80, frameHeight: 80 });
@@ -100,13 +100,13 @@ export class Scene01 extends Phaser.Scene {
 
         // Caméra
         this.cameras.main.setBounds(0, 0, 293 * 32, 50 * 32);
-        this.player = this.physics.add.sprite(100,1472, 'perso').setDepth(100);
+        this.player = this.physics.add.sprite(107 * 32, 7 * 32, 'perso').setDepth(100);
         this.cameras.main.setZoom(2.2);
         this.player.setSize(20, 44);
         this.player.setOffset(8, 4);
 
 
-        
+
 
 
 
@@ -130,7 +130,7 @@ export class Scene01 extends Phaser.Scene {
         this.add.image(300, 450, 'background1').setScrollFactor(0.5).setDepth(-1);
         this.add.image(1000, 400, 'background2').setScrollFactor(0.6).setDepth(-2);
 
-        this.physics.world.setBounds(0,0,calque_ronce.width, calque_ronce.height);
+        this.physics.world.setBounds(0, 0, calque_ronce.width, calque_ronce.height);
         this.player.setCollideWorldBounds(true)
 
 
@@ -195,8 +195,8 @@ export class Scene01 extends Phaser.Scene {
             } else {
                 this.player.setVelocityY(0)
             }
-           
-            
+
+
         }, null, this);
 
         this.playerInitialGravity = this.player.body.gravity.y;
@@ -299,7 +299,7 @@ export class Scene01 extends Phaser.Scene {
 
 
         this.platforms = new Platform(this, 3075, 429, 140, 2.2);
-        this.platforms2 = new Platform(this, 3210, 850, 360, 2.3);
+        this.platforms2 = new Platform(this, 3210, 850, 360, 2.8);
 
         // Collider des plateformes horizontales
         this.physics.add.collider(this.platforms0, this.player)
@@ -416,7 +416,7 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.player, this.box6);
         this.physics.add.collider(this.calque_fondu, this.box6);
 
-        
+
 
 
 
@@ -505,20 +505,25 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible6, this.calque_plateforme);
         this.collectible6.play('Souvenirs', true);
 
-        this.collectible7 = new Memories(this, 77*32,10*32);
+        this.collectible7 = new Memories(this, 77 * 32, 10 * 32);
         this.physics.add.collider(this.collectible7.visionBox, this.player, this.handleCollisionWithCollectible7, null, this);
         this.physics.add.collider(this.collectible7, this.calque_plateforme);
         this.collectible7.play('Souvenirs', true);
 
-        this.collectible8 = new Memories(this, 164*32,24*32);
+        this.collectible8 = new Memories(this, 164 * 32, 24 * 32);
         this.physics.add.collider(this.collectible8.visionBox, this.player, this.handleCollisionWithCollectible8, null, this);
         this.physics.add.collider(this.collectible8, this.calque_plateforme);
         this.collectible8.play('Souvenirs', true);
 
-        this.collectible9 = new Memories(this, 49*32,35*32);
+        this.collectible9 = new Memories(this, 49 * 32, 35 * 32);
         this.physics.add.collider(this.collectible9.visionBox, this.player, this.handleCollisionWithCollectible9, null, this);
         this.physics.add.collider(this.collectible9, this.calque_plateforme);
         this.collectible9.play('Souvenirs', true);
+
+        this.collectible10 = new Memories(this, 101 * 32, 30 * 32);
+        this.physics.add.collider(this.collectible10.visionBox, this.player, this.handleCollisionWithCollectible10, null, this);
+        this.physics.add.collider(this.collectible10, this.calque_plateforme);
+        this.collectible10.play('Souvenirs', true);
 
 
 
@@ -537,6 +542,11 @@ export class Scene01 extends Phaser.Scene {
         this.checkpoint3 = this.physics.add.sprite(2080, 850, 'checkpoint');
         this.checkpoint4 = this.physics.add.sprite(832, 580, 'checkpoint');
         this.checkpoint5 = this.physics.add.sprite(2900, 700, 'checkpoint');
+        this.checkpoint6 = this.physics.add.sprite(30 * 32, 21 * 32, 'checkpoint');
+        this.checkpoint7 = this.physics.add.sprite(55 * 32, 8 * 32, 'checkpoint');
+        this.checkpoint8 = this.physics.add.sprite(107 * 32, 7* 32, 'checkpoint');
+        
+
 
         // Overlap entre le player et le chekpoint 1
         this.physics.add.overlap(this.player, this.checkpoint1, () => {
@@ -583,6 +593,35 @@ export class Scene01 extends Phaser.Scene {
             this.lastCheckpoint.y = this.player.y;
         }, null, this);
 
+        // Collision entre checkpoint6 et this.calque_plateforme
+        this.physics.add.collider(this.checkpoint6, this.calque_plateforme);
+
+        // Overlap entre le player et le chekpoint 5
+        this.physics.add.overlap(this.player, this.checkpoint6, () => {
+            this.lastCheckpoint.x = this.player.x;
+            this.lastCheckpoint.y = this.player.y;
+        }, null, this);
+
+        // Collision entre checkpoint7  et this.calque_plateforme
+        this.physics.add.collider(this.checkpoint7, this.calque_plateforme);
+
+        // Overlap entre le player et le chekpoint 5
+        this.physics.add.overlap(this.player, this.checkpoint7, () => {
+            this.lastCheckpoint.x = this.player.x;
+            this.lastCheckpoint.y = this.player.y;
+        }, null, this);
+
+        // Collision entre checkpoint8  et this.calque_plateforme
+        this.physics.add.collider(this.checkpoint8, this.calque_plateforme);
+
+        // Overlap entre le player et le chekpoint 5
+        this.physics.add.overlap(this.player, this.checkpoint8, () => {
+            this.lastCheckpoint.x = this.player.x;
+            this.lastCheckpoint.y = this.player.y;
+        }, null, this);
+
+
+
 
 
         this.anims.create({
@@ -608,8 +647,8 @@ export class Scene01 extends Phaser.Scene {
         });
 
         this.roi = this.add.sprite(180, 1457, 'Roi').setOrigin(0);
-        this.roi.anims.play ('Roi',true);
-       
+        this.roi.anims.play('Roi', true);
+
     }
 
 
@@ -708,7 +747,7 @@ export class Scene01 extends Phaser.Scene {
 
     }
 
-    
+
     handleCollisionWithCollectible5(visionBox, player) {
         // Faire disparaître l'allié
         this.collectible5.setVisible(false);
@@ -765,6 +804,20 @@ export class Scene01 extends Phaser.Scene {
         // Faire disparaître l'allié
         this.collectible9.setVisible(false);
         this.collectible9.setActive(false);
+
+        // Supprimer la hitbox de l'allié
+        visionBox.destroy();
+
+        nombre++;
+        score.setText(+ nombre);
+
+    }
+
+    
+    handleCollisionWithCollectible10(visionBox, player) {
+        // Faire disparaître l'allié
+        this.collectible10.setVisible(false);
+        this.collectible10.setActive(false);
 
         // Supprimer la hitbox de l'allié
         visionBox.destroy();
@@ -831,22 +884,22 @@ export class Scene01 extends Phaser.Scene {
         if (this.canMove) {
             if (this.cursors.left.isDown) {
                 this.player.setVelocityX(-180);
-                if(!this.player.onWall) this.player.anims.play('left', true);
+                if (!this.player.onWall) this.player.anims.play('left', true);
                 this.player.setFlipX(true); // Correction : setFlipX à true
 
             } else if (this.cursors.right.isDown) {
                 this.player.setVelocityX(180);
-                if(!this.player.onWall) this.player.anims.play('left', true);
+                if (!this.player.onWall) this.player.anims.play('left', true);
                 this.player.setFlipX(false); // Correction : setFlipX à false
 
             } else {
                 this.player.setVelocityX(0);
-                if(!this.player.onWall) this.player.anims.play('turn', true);
+                if (!this.player.onWall) this.player.anims.play('turn', true);
             }
 
             if (Phaser.Input.Keyboard.JustDown(this.cursors.up) && this.player.grounded) {
                 this.player.setVelocityY(-300);
-                if(!this.player.onWall) this.player.anims.play('saut');
+                if (!this.player.onWall) this.player.anims.play('saut');
             }
         } else {
             this.player.setVelocityX(0);
@@ -866,7 +919,7 @@ export class Scene01 extends Phaser.Scene {
         // Si le joueur est petit il ne peut pas bouger les box
 
         if (this.isReduced) {
-            this.player.setGravity(0,150);
+            this.player.setGravity(0, 150);
             this.box.body.moves = false; // Désactive le mouvement de la boîte lorsque le joueur est réduit
             this.box2.body.moves = false; // Désactive le mouvement de la boîte lorsque le joueur est réduit
             this.box1.body.moves = false; // Désactive le mouvement de la boîte lorsque le joueur est réduit
@@ -877,7 +930,7 @@ export class Scene01 extends Phaser.Scene {
 
 
         } else {
-            this.player.setGravity(0,0);
+            this.player.setGravity(0, 0);
             this.box.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
             this.box2.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
             this.box1.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
