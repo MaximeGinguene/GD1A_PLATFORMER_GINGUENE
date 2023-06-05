@@ -7,7 +7,8 @@ export class Rock extends Phaser.Physics.Arcade.Sprite {
 
         this.setSize(64, 64)
             .setOffset(0, 0)
-            .setImmovable(true);
+            .setImmovable(true)
+            .setGravity(0,1000);
 
         this.player = scene.player; 
 
@@ -47,6 +48,8 @@ export class Rock extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (this.isAgrippantBox) {
+            this.setGravity(0, 0)
+
             if (this.player.body.blocked.down && this.scene.cursors.up.isDown) {
                 this.player.setVelocityY(-200);
             }
@@ -56,15 +59,14 @@ export class Rock extends Phaser.Physics.Arcade.Sprite {
             if (this.player.body.blocked.left && this.scene.cursors.up.isDown) {
                 this.player.setVelocityY(-200);
             }
-        }
-
-        if (this.isAgrippantBox) {
             if (this.player.body.blocked.right) {
                 this.setVelocityX(120);
             }
             if (this.player.body.blocked.left) {
                 this.setVelocityX(-120);
             }
+        } else {
+            this.setGravity(0, 200)
         }
     }
 }

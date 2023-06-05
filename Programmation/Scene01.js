@@ -62,6 +62,9 @@ export class Scene01 extends Phaser.Scene {
 
         ///////Animation joueur/////////////////////
         this.load.spritesheet('spiderman', 'Programmation/assets/colle.png', { frameWidth: 32, frameHeight: 48 });
+
+        this.load.spritesheet('ombreplafond', 'Programmation/assets/ombreplafond.png', { frameWidth: 48, frameHeight: 32 });
+        
         this.load.spritesheet('Course', 'Programmation/assets/CourseTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('Essoufle', 'Programmation/assets/idleTacheSombre.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('explosion', 'Programmation/assets/mort.png', { frameWidth: 80, frameHeight: 80 });
@@ -97,10 +100,12 @@ export class Scene01 extends Phaser.Scene {
 
         // Caméra
         this.cameras.main.setBounds(0, 0, 293 * 32, 50 * 32);
-        this.player = this.physics.add.sprite(100,1472, 'perso').setDepth(100);
+        this.player = this.physics.add.sprite(189*32,42*32, 'perso').setDepth(100);
         this.cameras.main.setZoom(2.2);
         this.player.setSize(20, 44);
         this.player.setOffset(8, 4);
+
+
         
 
 
@@ -124,6 +129,9 @@ export class Scene01 extends Phaser.Scene {
 
         this.add.image(300, 450, 'background1').setScrollFactor(0.5).setDepth(-1);
         this.add.image(1000, 400, 'background2').setScrollFactor(0.6).setDepth(-2);
+
+        this.physics.world.setBounds(0,0,calque_ronce.width, calque_ronce.height);
+        this.player.setCollideWorldBounds(true)
 
 
         //spider man
@@ -152,6 +160,16 @@ export class Scene01 extends Phaser.Scene {
 
         });
 
+        this.anims.create({
+            key: 'ombreplafond',
+            frames: this.anims.generateFrameNumbers('ombreplafond', { start: 0, end: 2 }),
+            frameRate: 10,
+            repeat: -1
+
+        });
+
+
+
 
 
         ///Animation de l'esprit Simple /////////////////
@@ -163,14 +181,22 @@ export class Scene01 extends Phaser.Scene {
 
         // Activer la collision entre le joueur et le this.calque_fondu
         this.physics.add.collider(this.calque_fondu, this.player, () => {
+            if (this.player.body.blocked.up) this.player.anims.play('ombreplafond', true);
+            else this.player.anims.play('spiderman', true);
+            clearTimeout(this.player.onWallTimeout);
+            this.player.onWall = true;
+            this.player.onWallTimeout = setTimeout(() => {
+                this.player.onWall = false;
+            }, 100);
             if (this.cursors.up.isDown) {
-                this.player.setVelocityY(-180)
-                //this.player.anims.play('spiderman',true);
+                this.player.setVelocityY(-180);
             } else if (this.cursors.down.isDown) {
                 this.player.setVelocityY(180)
             } else {
                 this.player.setVelocityY(0)
             }
+           
+            
         }, null, this);
 
         this.playerInitialGravity = this.player.body.gravity.y;
@@ -217,7 +243,7 @@ export class Scene01 extends Phaser.Scene {
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('Course', { start: 0, end: 8 }),
-            frameRate: 13,
+            frameRate: 10,
             repeat: -1
 
         });
@@ -802,34 +828,30 @@ export class Scene01 extends Phaser.Scene {
 
         if (this.player.cantmove) return;
 
-
-
         if (this.canMove) {
             if (this.cursors.left.isDown) {
                 this.player.setVelocityX(-180);
-                this.player.anims.play('left', true);
+                if(!this.player.onWall) this.player.anims.play('left', true);
                 this.player.setFlipX(true); // Correction : setFlipX à true
 
             } else if (this.cursors.right.isDown) {
                 this.player.setVelocityX(180);
-                this.player.anims.play('left', true);
+                if(!this.player.onWall) this.player.anims.play('left', true);
                 this.player.setFlipX(false); // Correction : setFlipX à false
 
             } else {
                 this.player.setVelocityX(0);
-                this.player.anims.play('turn', true);
+                if(!this.player.onWall) this.player.anims.play('turn', true);
             }
 
             if (Phaser.Input.Keyboard.JustDown(this.cursors.up) && this.player.grounded) {
                 this.player.setVelocityY(-300);
-                this.player.anims.play('saut');
+                if(!this.player.onWall) this.player.anims.play('saut');
             }
         } else {
             this.player.setVelocityX(0);
             this.player.setVelocityY(0);
         }
-
-
 
         if (this.player.isAgrippantBox) {
             const box = this.boxAgrippee;
@@ -844,6 +866,7 @@ export class Scene01 extends Phaser.Scene {
         // Si le joueur est petit il ne peut pas bouger les box
 
         if (this.isReduced) {
+            this.player.setGravity(0,150);
             this.box.body.moves = false; // Désactive le mouvement de la boîte lorsque le joueur est réduit
             this.box2.body.moves = false; // Désactive le mouvement de la boîte lorsque le joueur est réduit
             this.box1.body.moves = false; // Désactive le mouvement de la boîte lorsque le joueur est réduit
@@ -854,6 +877,7 @@ export class Scene01 extends Phaser.Scene {
 
 
         } else {
+            this.player.setGravity(0,0);
             this.box.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
             this.box2.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit
             this.box1.body.moves = true; // Active le mouvement de la boîte lorsque le joueur n'est pas réduit

@@ -1,6 +1,7 @@
 import { Scene01 as Scene01 } from "./Scene01.js";
 import { Scene02 as Scene02 } from "./Scene02.js";
 import { Menu as Menu } from "./menu.js";
+import {tuto as tuto} from "./tuto.js";
 
 var config = {
     type: Phaser.WEBGL,
@@ -14,7 +15,7 @@ var config = {
         },
         tileBias: 32
     },
-    scene: [ Menu,Scene01, Scene02], 
+    scene: [ Menu,tuto,Scene01, Scene02,], 
     scale: {
         parent: 'game_viewport',
         mode: Phaser.Scale.FIT,
