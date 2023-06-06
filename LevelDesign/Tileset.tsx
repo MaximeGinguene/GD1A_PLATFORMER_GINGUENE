@@ -66,6 +66,16 @@
    <property name="estSolide" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="144">
+  <properties>
+   <property name="estSolide" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="145">
+  <properties>
+   <property name="estSolide" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="194">
   <properties>
    <property name="estSolide" type="bool" value="true"/>

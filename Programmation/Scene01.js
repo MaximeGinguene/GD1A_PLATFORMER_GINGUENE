@@ -35,7 +35,7 @@ export class Scene01 extends Phaser.Scene {
 
     preload() {
 
-       
+        //this.load.audio('musique', 'Programmation/assets/MusiqueJeu.mp3');
         this.load.tilemapTiledJSON('map', "Programmation/assets/MapMarioLike.json");
         this.load.image("tileset", "Programmation/assets/Tileset.png");
         this.load.image('box', 'Programmation/assets/rocher.png');
@@ -55,6 +55,7 @@ export class Scene01 extends Phaser.Scene {
         //
 
         this.load.spritesheet('SouvenirImage', 'Programmation/assets/souvenirspritesheet.png', { frameWidth: 32, frameHeight: 32 });
+        //this.load.spritesheet('SouvenirUltime', 'Programmation/assets/CollectBlue.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('particule', 'Programmation/assets/particule.png');
         this.load.spritesheet('checkpoint', 'Programmation/assets/invisible_sprite.png', { frameWidth: 96, frameHeight: 96 });
 
@@ -70,7 +71,7 @@ export class Scene01 extends Phaser.Scene {
         this.load.spritesheet('explosion', 'Programmation/assets/mort.png', { frameWidth: 80, frameHeight: 80 });
         this.load.spritesheet('saut', 'Programmation/assets/saut.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('death', 'Programmation/assets/dead.png', { frameWidth: 32, frameHeight: 64 });
-        //this.load.spritesheet('pousse', 'Programmation/assets/pousse.png', { frameWidth: 32, frameHeight: 48 });
+       
 
 
 
@@ -93,6 +94,8 @@ export class Scene01 extends Phaser.Scene {
         ////////Chargement du Roi des ombres///////////
         this.load.spritesheet('Roi', 'Programmation/assets/Roiombre-Sheet.png', { frameWidth: 32, frameHeight: 48 });
 
+  
+
 
     }
     create() {
@@ -104,14 +107,6 @@ export class Scene01 extends Phaser.Scene {
         this.cameras.main.setZoom(2.2);
         this.player.setSize(20, 44);
         this.player.setOffset(8, 4);
-
-
-
-
-
-
-
-
 
         const map = this.add.tilemap("map");// ajout map 
         const tiles = map.addTilesetImage("Tileset", "tileset");// ajout collision
@@ -132,7 +127,6 @@ export class Scene01 extends Phaser.Scene {
 
         this.physics.world.setBounds(0, 0, calque_ronce.width, calque_ronce.height);
         this.player.setCollideWorldBounds(true)
-
 
         //spider man
 
@@ -671,6 +665,9 @@ export class Scene01 extends Phaser.Scene {
         this.roi = this.add.sprite(180, 1457, 'Roi').setOrigin(0);
         this.roi.anims.play('Roi', true);
 
+
+       
+
     }
 
 
@@ -913,6 +910,11 @@ export class Scene01 extends Phaser.Scene {
     }
 
     update() {
+
+
+        //this.musique = this.sound.add('musique', { loop: true });
+        //this.musique.play();
+
         if (this.player.body.blocked.down) {
             this.player.grounded = true;
         }
@@ -996,6 +998,8 @@ export class Scene01 extends Phaser.Scene {
 
         // Utilisez this.emitter pour accéder à l'objet emitter dans la fonction update()
         this.emitter.setPosition(this.player.x, this.player.y);
+
+    
 
 
 
