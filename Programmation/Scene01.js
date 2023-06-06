@@ -35,7 +35,7 @@ export class Scene01 extends Phaser.Scene {
 
     preload() {
 
-        //this.load.spritesheet('perso', 'assets/monperso.png', { frameWidth: 32, frameHeight: 48 });
+       
         this.load.tilemapTiledJSON('map', "Programmation/assets/MapMarioLike.json");
         this.load.image("tileset", "Programmation/assets/Tileset.png");
         this.load.image('box', 'Programmation/assets/rocher.png');
@@ -44,7 +44,7 @@ export class Scene01 extends Phaser.Scene {
         this.load.image('projectileImage', 'Programmation/assets/balle.png');
 
 
-        this.load.spritesheet('EnnemyImage', 'Programmation/assets/Espritfeusprite.png', { frameWidth: 40, frameHeight: 40 });
+        this.load.spritesheet('EnnemyImage', 'Programmation/assets/Esprit1.png', { frameWidth: 40, frameHeight: 40 });
 
 
         //background
@@ -86,7 +86,7 @@ export class Scene01 extends Phaser.Scene {
 
 
         // Chargement du méchant de feu.
-        this.load.spritesheet('Feu', 'Programmation/assets/spirite.png', { frameWidth: 32, frameHeight: 64 });
+        this.load.spritesheet('Feu', 'Programmation/assets/secondesprit.png', { frameWidth: 40, frameHeight: 40 });
         this.load.spritesheet('Bouledefeu', 'Programmation/assets/fireball.png', { frameWidth: 16, frameHeight: 16 });
 
 
@@ -100,7 +100,7 @@ export class Scene01 extends Phaser.Scene {
 
         // Caméra
         this.cameras.main.setBounds(0, 0, 293 * 32, 50 * 32);
-        this.player = this.physics.add.sprite(107 * 32, 7 * 32, 'perso').setDepth(100);
+        this.player = this.physics.add.sprite(100, 1472, 'perso').setDepth(100);
         this.cameras.main.setZoom(2.2);
         this.player.setSize(20, 44);
         this.player.setOffset(8, 4);
@@ -225,8 +225,8 @@ export class Scene01 extends Phaser.Scene {
         // Animation pour Feu
         this.anims.create({
             key: 'feu',
-            frames: this.anims.generateFrameNumbers('Feu', { start: 0, end: 1 }),
-            frameRate: 5,
+            frames: this.anims.generateFrameNumbers('Feu', { start: 0, end: 6 }),
+            frameRate: 6,
             repeat: -1
         });
 
@@ -327,8 +327,7 @@ export class Scene01 extends Phaser.Scene {
 
         /////////////////////////////////////////Création des esprits///////////////////////////////////////////////////
 
-        this.Firespirite = new Spirits(this, 93 * 32, 40 * 32, this.calque_plateforme);
-        this.physics.add.collider(this.Firespirite, this.player)
+        this.Firespirite = new Spirits(this, 2840, 40 * 32, this.calque_plateforme);
         this.physics.add.collider(this.Firespirite, this.calque_plateforme)
 
         this.Firespirite.play('feu', true); // Ligne pour Feu
@@ -490,7 +489,7 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible3, this.calque_plateforme);
         this.collectible3.play('Souvenirs', true);
 
-        this.collectible4 = new Memories(this, 3350, 17 * 32);
+        this.collectible4 = new Memories(this, 3380, 17 * 32);
         this.physics.add.collider(this.collectible4.visionBox, this.player, this.handleCollisionWithCollectible4, null, this);
         this.physics.add.collider(this.collectible4, this.calque_plateforme);
         this.collectible4.play('Souvenirs', true);
@@ -525,6 +524,18 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible10, this.calque_plateforme);
         this.collectible10.play('Souvenirs', true);
 
+        this.collectible11 = new Memories(this, 2705, 34 * 32);
+        this.physics.add.collider(this.collectible11.visionBox, this.player, this.handleCollisionWithCollectible11, null, this);
+        this.physics.add.collider(this.collectible11, this.calque_plateforme);
+        this.collectible11.play('Souvenirs', true);
+
+        this.collectible12 = new Memories(this, 131*32, 38 * 32);
+        this.physics.add.collider(this.collectible12.visionBox, this.player, this.handleCollisionWithCollectible12, null, this);
+        this.physics.add.collider(this.collectible12, this.calque_plateforme);
+        this.collectible12.play('Souvenirs', true);
+
+
+
 
 
 
@@ -545,6 +556,7 @@ export class Scene01 extends Phaser.Scene {
         this.checkpoint6 = this.physics.add.sprite(30 * 32, 21 * 32, 'checkpoint');
         this.checkpoint7 = this.physics.add.sprite(55 * 32, 8 * 32, 'checkpoint');
         this.checkpoint8 = this.physics.add.sprite(107 * 32, 7* 32, 'checkpoint');
+        this.checkpoint9 = this.physics.add.sprite(3800, 1312, 'checkpoint');
         
 
 
@@ -619,6 +631,16 @@ export class Scene01 extends Phaser.Scene {
             this.lastCheckpoint.x = this.player.x;
             this.lastCheckpoint.y = this.player.y;
         }, null, this);
+
+         // Collision entre checkpoint9  et this.calque_plateforme
+         this.physics.add.collider(this.checkpoint9, this.calque_plateforme);
+
+         // Overlap entre le player et le chekpoint 5
+         this.physics.add.overlap(this.player, this.checkpoint9, () => {
+             this.lastCheckpoint.x = this.player.x;
+             this.lastCheckpoint.y = this.player.y;
+         }, null, this);
+ 
 
 
 
@@ -818,6 +840,32 @@ export class Scene01 extends Phaser.Scene {
         // Faire disparaître l'allié
         this.collectible10.setVisible(false);
         this.collectible10.setActive(false);
+
+        // Supprimer la hitbox de l'allié
+        visionBox.destroy();
+
+        nombre++;
+        score.setText(+ nombre);
+
+    }
+
+    handleCollisionWithCollectible11(visionBox, player) {
+        // Faire disparaître l'allié
+        this.collectible11.setVisible(false);
+        this.collectible11.setActive(false);
+
+        // Supprimer la hitbox de l'allié
+        visionBox.destroy();
+
+        nombre++;
+        score.setText(+ nombre);
+
+    }
+
+    handleCollisionWithCollectible12(visionBox, player) {
+        // Faire disparaître l'allié
+        this.collectible12.setVisible(false);
+        this.collectible12.setActive(false);
 
         // Supprimer la hitbox de l'allié
         visionBox.destroy();

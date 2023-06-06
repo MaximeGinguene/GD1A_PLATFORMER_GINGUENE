@@ -276,6 +276,11 @@
    <property name="estSolide" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="508">
+  <properties>
+   <property name="estSolide" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="528">
   <properties>
    <property name="estSolide" type="bool" value="true"/>

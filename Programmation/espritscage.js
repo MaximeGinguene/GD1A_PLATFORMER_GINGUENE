@@ -4,16 +4,17 @@ export class Spirits extends Phaser.Physics.Arcade.Sprite {
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
-        this.body.allowGravity = false;
+        this.body.allowGravity = true;
 
         this.scene = scene;
         this.calque_plateforme = calque_plateforme;
         this.player = player;
+        
 
-        this.setSize(32, 64);
+        this.setSize(40, 40);
         this.setOffset(0, 0);
 
-        this.projectileSpeed = 1200; // Vitesse des projectiles en pixels par seconde
+        this.projectileSpeed = 1000; // Vitesse des projectiles en pixels par seconde
         this.projectileDistance = 720; // Distance maximale des projectiles en pixels
         this.projectileAngle = 0; // Angle de tir du projectile en degrés
 
@@ -44,13 +45,20 @@ export class Spirits extends Phaser.Physics.Arcade.Sprite {
                 projectile.destroy(); // Détruire le projectile lors de la collision avec le calque_plateforme
             });
 
-            this.scene.physics.add.collider(projectile, this.player, () => {
+            this.scene.physics.add.collider(projectile, this.scene.player, () => {
+                this.scene.handlePlayerDeath();
+                projectile.destroy(); // Détruire le projectile lors de la collision avec le joueur
+            });
+
+            this.scene.physics.add.collider(projectile, this.scene.box2, () => {
                 projectile.destroy(); // Détruire le projectile lors de la collision avec le joueur
             });
 
             this.scene.time.delayedCall(this.projectileDistance / this.projectileSpeed * 1000, () => {
+                
                 projectile.destroy();
             });
+
         }
     }
 
