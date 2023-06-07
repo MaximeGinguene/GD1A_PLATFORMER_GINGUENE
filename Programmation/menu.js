@@ -9,11 +9,17 @@ export class Menu extends Phaser.Scene{
         this.load.image('option', 'Programmation/assets/option.png'); 
         this.load.image('quit', 'Programmation/assets/quitter.png'); 
         this.load.image('Logo', 'Programmation/assets/LogoJeu.png'); 
+        this.load.audio('musique', 'Programmation/assets/MusiqueJeu.mp3');
+
   
         
     }
 
     create(){
+
+        this.musique = this.sound.add('musique', { loop: true });
+        this.musique.play();
+        
         this.add.image(0, 0, 'menu');
         var boutonPlay = this.add.sprite(960, 550, 'play').setInteractive();
 

@@ -38,18 +38,14 @@ export class Memories extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        const cameraX = this.camera.scrollX + this.camera.width / 2;
-        const cameraY = this.camera.scrollY + this.camera.height / 2;
-        this.image.x = cameraX + this.imageX;
-        this.image.y = cameraY + this.imageY;
+    
         this.visionBox.x = this.x;
         this.visionBox.y = this.y;
 
-        if (this.image.visible) this.scene.player.cantmove = true;
     }
 
     destroy() {
-        this.scene.player.cantmove = false;
+   
         this.visionBox.destroy();
         this.image.destroy();
         super.destroy();

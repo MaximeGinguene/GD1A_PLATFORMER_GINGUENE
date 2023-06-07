@@ -3,7 +3,7 @@ import { Platform } from './platformGroup.js';
 import { PlatformVertical } from './platformVerticaleGroup.js';
 import { Memories } from './Collectible.js';
 import { Rock } from './RocherGroup.js';
-import { Spirits } from './espritscage.js';
+import { Spirits } from './espritfeu.js';
 
 
 
@@ -35,13 +35,17 @@ export class Scene01 extends Phaser.Scene {
 
     preload() {
 
-        //this.load.audio('musique', 'Programmation/assets/MusiqueJeu.mp3');
+        this.load.audio('musique', 'Programmation/assets/MusiqueJeu.mp3');
         this.load.tilemapTiledJSON('map', "Programmation/assets/MapMarioLike.json");
         this.load.image("tileset", "Programmation/assets/Tileset.png");
         this.load.image('box', 'Programmation/assets/rocher.png');
         this.load.image('platformImage', 'Programmation/assets/platform.png');
 
         this.load.image('projectileImage', 'Programmation/assets/balle.png');
+
+        this.load.image('bulle', 'Programmation/assets/Dialogue.png');
+
+        
 
 
         this.load.spritesheet('EnnemyImage', 'Programmation/assets/Esprit1.png', { frameWidth: 40, frameHeight: 40 });
@@ -71,14 +75,13 @@ export class Scene01 extends Phaser.Scene {
         this.load.spritesheet('explosion', 'Programmation/assets/mort.png', { frameWidth: 80, frameHeight: 80 });
         this.load.spritesheet('saut', 'Programmation/assets/saut.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('death', 'Programmation/assets/dead.png', { frameWidth: 32, frameHeight: 64 });
-       
+
 
 
 
         //////Collectible Hsitoire/////////////////
         this.load.image('histoire_collectible1', 'Programmation/assets/histoire2.png');
-        this.load.image('histoire_collectible2', 'Programmation/assets/histoire3.png');
-
+        
         ///Game over
         this.load.spritesheet('GameOverImage', 'Programmation/assets/gameover.png', { frameWidth: 600, frameHeight: 200 });
 
@@ -94,11 +97,14 @@ export class Scene01 extends Phaser.Scene {
         ////////Chargement du Roi des ombres///////////
         this.load.spritesheet('Roi', 'Programmation/assets/Roiombre-Sheet.png', { frameWidth: 32, frameHeight: 48 });
 
-  
+
 
 
     }
     create() {
+
+        this.musique = this.sound.add('musique', { loop: true });
+        this.musique.play();
 
 
         // Caméra
@@ -466,14 +472,14 @@ export class Scene01 extends Phaser.Scene {
 
         ///////////////////////////// Collectible //////////////////////////////////////////////////////////////////
 
-        this.collectible1 = new Memories(this, 13 * 32, 37 * 32, "histoire_collectible1", 20, 150,);
+        this.collectible1 = new Memories(this, 13 * 32, 37 * 32);
         this.physics.add.collider(this.collectible1.visionBox, this.player, this.handleCollisionWithCollectible, null, this);
         this.collectible1.play('Souvenirs', true);
         this.physics.add.collider(this.collectible1, this.calque_plateforme);
 
 
 
-        this.collectible2 = new Memories(this, 3 * 32, 34 * 32, 'histoire_collectible2', 20, 150,);
+        this.collectible2 = new Memories(this, 3 * 32, 34 * 32);
         this.physics.add.collider(this.collectible2.visionBox, this.player, this.handleCollisionWithCollectible2, null, this);
         this.physics.add.collider(this.collectible2, this.calque_plateforme);
         this.collectible2.play('Souvenirs', true);
@@ -503,7 +509,7 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible7, this.calque_plateforme);
         this.collectible7.play('Souvenirs', true);
 
-        this.collectible8 = new Memories(this, 164 * 32, 24 * 32);
+        this.collectible8 = new Memories(this, 164 * 32, 23 * 32);
         this.physics.add.collider(this.collectible8.visionBox, this.player, this.handleCollisionWithCollectible8, null, this);
         this.physics.add.collider(this.collectible8, this.calque_plateforme);
         this.collectible8.play('Souvenirs', true);
@@ -523,10 +529,20 @@ export class Scene01 extends Phaser.Scene {
         this.physics.add.collider(this.collectible11, this.calque_plateforme);
         this.collectible11.play('Souvenirs', true);
 
-        this.collectible12 = new Memories(this, 131*32, 38 * 32);
+        this.collectible12 = new Memories(this, 131 * 32, 38 * 32);
         this.physics.add.collider(this.collectible12.visionBox, this.player, this.handleCollisionWithCollectible12, null, this);
         this.physics.add.collider(this.collectible12, this.calque_plateforme);
         this.collectible12.play('Souvenirs', true);
+
+        this.collectible13 = new Memories(this, 136 * 32, 27 * 32);
+        this.physics.add.collider(this.collectible13.visionBox, this.player, this.handleCollisionWithCollectible13, null, this);
+        this.physics.add.collider(this.collectible13, this.calque_plateforme);
+        this.collectible13.play('Souvenirs', true);
+
+        this.collectible14 = new Memories(this, 212 * 32, 36 * 32);
+        this.physics.add.collider(this.collectible14.visionBox, this.player, this.handleCollisionWithCollectible14, null, this);
+        this.physics.add.collider(this.collectible14, this.calque_plateforme);
+        this.collectible14.play('Souvenirs', true);
 
 
 
@@ -549,9 +565,10 @@ export class Scene01 extends Phaser.Scene {
         this.checkpoint5 = this.physics.add.sprite(2900, 700, 'checkpoint');
         this.checkpoint6 = this.physics.add.sprite(30 * 32, 21 * 32, 'checkpoint');
         this.checkpoint7 = this.physics.add.sprite(55 * 32, 8 * 32, 'checkpoint');
-        this.checkpoint8 = this.physics.add.sprite(107 * 32, 7* 32, 'checkpoint');
+        this.checkpoint8 = this.physics.add.sprite(107 * 32, 7 * 32, 'checkpoint');
         this.checkpoint9 = this.physics.add.sprite(3800, 1312, 'checkpoint');
-        
+        this.checkpoint10 = this.physics.add.sprite(157*32, 40*32, 'checkpoint');
+
 
 
         // Overlap entre le player et le chekpoint 1
@@ -620,21 +637,31 @@ export class Scene01 extends Phaser.Scene {
         // Collision entre checkpoint8  et this.calque_plateforme
         this.physics.add.collider(this.checkpoint8, this.calque_plateforme);
 
-        // Overlap entre le player et le chekpoint 5
+        // Overlap entre le player et le chekpoint 8
         this.physics.add.overlap(this.player, this.checkpoint8, () => {
             this.lastCheckpoint.x = this.player.x;
             this.lastCheckpoint.y = this.player.y;
         }, null, this);
 
-         // Collision entre checkpoint9  et this.calque_plateforme
-         this.physics.add.collider(this.checkpoint9, this.calque_plateforme);
+        // Collision entre checkpoint9  et this.calque_plateforme
+        this.physics.add.collider(this.checkpoint9, this.calque_plateforme);
+
+        // Overlap entre le player et le chekpoint 9
+        this.physics.add.overlap(this.player, this.checkpoint9, () => {
+            this.lastCheckpoint.x = this.player.x;
+            this.lastCheckpoint.y = this.player.y;
+        }, null, this);
+
+         // Collision entre checkpoint 10 et this.calque_plateforme
+         this.physics.add.collider(this.checkpoint10, this.calque_plateforme);
 
          // Overlap entre le player et le chekpoint 5
-         this.physics.add.overlap(this.player, this.checkpoint9, () => {
+         this.physics.add.overlap(this.player, this.checkpoint10, () => {
              this.lastCheckpoint.x = this.player.x;
              this.lastCheckpoint.y = this.player.y;
          }, null, this);
  
+
 
 
 
@@ -655,18 +682,30 @@ export class Scene01 extends Phaser.Scene {
 
         ///////Chargement anime du Roi//////////
 
+        // Créez l'animation "Roi"
         this.anims.create({
-            key: 'Roi', // Utilisez la même clé que celle définie pour l'animation
+            key: 'Roi',
             frames: this.anims.generateFrameNumbers('Roi', { start: 0, end: 1 }),
             frameRate: 2,
             repeat: -1
         });
 
-        this.roi = this.add.sprite(180, 1457, 'Roi').setOrigin(0);
+        // Créez le sprite "roi"
+
+
+        this.bulle = this.add.sprite(195, 1448, 'bulle').setInteractive().on("pointerdown",()=>{
+            this.interractionRoi=this.add.image(445,1500,'histoire_collectible1').setInteractive().setDepth(2000).on("pointerdown",()=>{
+              this.interractionRoi.destroy()
+            })
+        })
+
+        this.roi = this.add.sprite(180, 1480, 'Roi');
         this.roi.anims.play('Roi', true);
 
+   
 
-       
+
+
 
     }
 
@@ -689,7 +728,6 @@ export class Scene01 extends Phaser.Scene {
         this.isRestarting = true;
         this.canMove = false;
         this.player.anims.play('death', true);
-
 
         // Temporisation pour attendre la fin de l'animation
         this.time.delayedCall(800, this.showGameOver, [], this);
@@ -832,7 +870,7 @@ export class Scene01 extends Phaser.Scene {
 
     }
 
-    
+
     handleCollisionWithCollectible10(visionBox, player) {
         // Faire disparaître l'allié
         this.collectible10.setVisible(false);
@@ -863,6 +901,32 @@ export class Scene01 extends Phaser.Scene {
         // Faire disparaître l'allié
         this.collectible12.setVisible(false);
         this.collectible12.setActive(false);
+
+        // Supprimer la hitbox de l'allié
+        visionBox.destroy();
+
+        nombre++;
+        score.setText(+ nombre);
+
+    }
+
+    handleCollisionWithCollectible13(visionBox, player) {
+        // Faire disparaître l'allié
+        this.collectible13.setVisible(false);
+        this.collectible13.setActive(false);
+
+        // Supprimer la hitbox de l'allié
+        visionBox.destroy();
+
+        nombre++;
+        score.setText(+ nombre);
+
+    }
+
+    handleCollisionWithCollectible14(visionBox, player) {
+        // Faire disparaître l'allié
+        this.collectible14.setVisible(false);
+        this.collectible14.setActive(false);
 
         // Supprimer la hitbox de l'allié
         visionBox.destroy();
@@ -911,9 +975,13 @@ export class Scene01 extends Phaser.Scene {
 
     update() {
 
+        if (nombre == 14){
 
-        //this.musique = this.sound.add('musique', { loop: true });
-        //this.musique.play();
+            this.scene.start('Menu')
+        }
+
+
+
 
         if (this.player.body.blocked.down) {
             this.player.grounded = true;
@@ -999,7 +1067,7 @@ export class Scene01 extends Phaser.Scene {
         // Utilisez this.emitter pour accéder à l'objet emitter dans la fonction update()
         this.emitter.setPosition(this.player.x, this.player.y);
 
-    
+
 
 
 
