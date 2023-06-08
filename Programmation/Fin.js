@@ -4,12 +4,13 @@ export class Fin extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('menu', 'Programmation/assets/fondmenu.png');
+        this.load.image('histoire', 'Programmation/assets/FondHistoire.png');
 
         
     }
 
     create(){
+        this.add.image(0, 0, 'histoire').setOrigin(0,0);
         
     }
 

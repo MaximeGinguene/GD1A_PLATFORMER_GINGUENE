@@ -472,7 +472,7 @@ export class Scene01 extends Phaser.Scene {
 
         ///////////////////////////// Collectible //////////////////////////////////////////////////////////////////
 
-        this.collectible1 = new Memories(this, 13 * 32, 37 * 32);
+        this.collectible1 = new Memories(this, 13 * 32, 37 * 32,);
         this.physics.add.collider(this.collectible1.visionBox, this.player, this.handleCollisionWithCollectible, null, this);
         this.collectible1.play('Souvenirs', true);
         this.physics.add.collider(this.collectible1, this.calque_plateforme);
@@ -977,7 +977,7 @@ export class Scene01 extends Phaser.Scene {
 
         if (nombre == 14){
 
-            this.scene.start('Menu')
+            this.scene.start('Fin')
         }
 
 

@@ -41,6 +41,7 @@ export class Memories extends Phaser.Physics.Arcade.Sprite {
     
         this.visionBox.x = this.x;
         this.visionBox.y = this.y;
+        
 
     }
 

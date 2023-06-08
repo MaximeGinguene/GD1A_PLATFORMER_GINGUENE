@@ -26,8 +26,7 @@ export class Ennemis extends Phaser.Physics.Arcade.Sprite {
         // Créer une hitbox pour le champ de vision
         this.visionBox = scene.add.rectangle(x, y, visionRadius * 2, visionRadius * 2, 0xff0000, 0.5);
         this.visionBox.setOrigin(0.5);
-        this.visionBox.setVisible(false); // Cacher la hitbox par défaut
-
+        this.visionBox.setVisible(false); // Cacher la visionbox par défaut
 
         this.calque_plateforme = calque_plateforme;
 
@@ -94,8 +93,6 @@ export class Ennemis extends Phaser.Physics.Arcade.Sprite {
             const direction = Math.sign(player.x - this.x);
             this.setVelocityX(this.velocity * direction);
         }
-        // Afficher ou masquer la hitbox du champ de vision en fonction de la détection du joueur
-        this.visionBox.setVisible(this.isPlayerDetected);
 
         // Mettre à jour la position de la hitbox pour qu'elle suive l'ennemi
         this.visionBox.setPosition(this.x, this.y);
